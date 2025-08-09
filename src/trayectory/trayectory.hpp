@@ -32,19 +32,14 @@ namespace compass::trayectory {
             }
         }
 
-        /**
-         * @class Simulated Annealing
-         * @brief Aplies SA
-         *
-         * @param
-         */
         class simulated_annealing {
 
             public:
 
             explicit simulated_annealing(const float T0,
                                 const float Tf,
-                                const size_t exploration_attempts = 1)
+                                const size_t exploration_attempts = 1
+            )
             {
 
                 if (T0 < Tf)

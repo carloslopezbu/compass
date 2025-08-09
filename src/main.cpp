@@ -55,44 +55,13 @@ float TspEvaluator::evaluate(const TspSolution& sol) const {
 // --- Cooling schedule ---
 struct LinearCooling {
     float cooling(float T) {
-        return T * 0.95f;
+        return T * 0.99f;
     }
 };
 
 int main() {
-    constexpr int NUM_CITIES = 50;
-    std::vector<std::vector<float>> dist_matrix(NUM_CITIES, std::vector<float>(NUM_CITIES));
 
-    // Generar distancias aleatorias simétricas
-    for (int i = 0; i < NUM_CITIES; ++i) {
-        for (int j = i; j < NUM_CITIES; ++j) {
-            if (i == j) {
-                dist_matrix[i][j] = 0.0f;
-            } else {
-                float dist = compass::utils::random::funiform(1.0f, 100.0f);
-                dist_matrix[i][j] = dist_matrix[j][i] = dist;
-            }
-        }
-    }
-
-    TspSolution init(dist_matrix);
-    TspEvaluator evaluator;
-    LinearCooling cooling;
-
-
-    const float T0 = 1000.0f;
-    const float Tf = 0.1f;
-    const size_t attempts_per_temp = 100;
-
-    compass::trayectory::sa::simulated_annealing sa(T0, Tf, attempts_per_temp);
-
-
-    auto best = sa.run(cooling, evaluator, init);
-
-    std::cout << "Mejor distancia: " << evaluator.evaluate(best) << "\n";
-    std::cout << "Tour: ";
-    for (auto city : best.tour) std::cout << city << " ";
-    std::cout << "\n";
+    std::cout << compass::utils::random::weighted_index({50.0, 70.0, 20.0, 40.0, 60.0}) << std::endl;
 
     return 0;
 }

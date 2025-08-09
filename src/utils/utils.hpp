@@ -1,9 +1,11 @@
 #ifndef UTILS
 #define UTILS
 
+#include <algorithm>
 #include <concepts>
 #include <limits>
 #include <random>
+#include <stdexcept>
 #include <vector>
 
 namespace compass::core {
@@ -68,6 +70,28 @@ namespace compass::utils::random {
     inline size_t uuniform(size_t lower = 0, size_t upper = 1) {
         std::uniform_int_distribution<size_t> dist(lower, upper);
         return dist(engine);
+    }
+
+    inline size_t weighted_index(const std::vector<float> &weights) {
+        if (weights.empty())
+            throw std::length_error("The weights sequence must have atlesast one position");
+
+        const float maximun =  *std::max_element(weights.begin(), weights.end());
+
+        if (maximun < limits::fepsilon)
+            throw std::runtime_error("Atleast one weight must be above 0.0");
+
+        const size_t size = weights.size() - 1;
+
+        for ( ; ; ) {
+            const size_t index = random::uuniform(0, size);
+
+            if (weights[index] < limits::fepsilon)
+                continue;
+
+            if (funiform() < weights[index] / maximun)
+                return index;
+        }
     }
 
     inline void seed(size_t seed) {

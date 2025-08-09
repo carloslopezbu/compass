@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/more/Desktop/code/compass/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/more/Desktop/code/compass/src/trayectory -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk -o CMakeFiles/compass.dir/src/main.cpp.o -c /Users/more/Desktop/code/compass/src/main.cpp",
+  "file": "/Users/more/Desktop/code/compass/src/main.cpp",
+  "output": "CMakeFiles/compass.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/more/Desktop/code/compass/build/src/trayectory",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/more/Desktop/code/compass/src/trayectory -std=gnu++2b -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk -o CMakeFiles/trayectory.dir/trayectory.cpp.o -c /Users/more/Desktop/code/compass/src/trayectory/trayectory.cpp",
+  "file": "/Users/more/Desktop/code/compass/src/trayectory/trayectory.cpp",
+  "output": "src/trayectory/CMakeFiles/trayectory.dir/trayectory.cpp.o"
+}
+]

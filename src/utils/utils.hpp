@@ -14,27 +14,18 @@ namespace compass::core {
         true;
     };
 
-    template <class Solution>
-    concept is_alterable = requires(Solution &sol) {
-        { sol.alterate() } -> std::same_as<Solution>;
-    };
-
     template <typename T>
-    concept evaluation = requires {
-        requires std::convertible_to<T, float> ||
-                  std::same_as<T, std::vector<float>>;
+    concept is_evaluation = requires {
+        requires std::convertible_to<T, float>;
     };
 
-    template <class Evaluator, class Solution>
-    concept evaluator =
-        evaluation<decltype(std::declval<Evaluator>().evaluate(std::declval<Solution>()))> &&
-        requires(Evaluator ev, Solution sol,
-                 decltype(ev.evaluate(sol)) e1,
-                 decltype(ev.evaluate(sol)) e2)
-        {
-            { ev.evaluate(sol) } -> evaluation;
-            { ev.compare(e1, e2) } -> std::same_as<bool>;
-        };
+    template <class Evaluator, class Solution, class Evaluation>
+    concept evaluator = is_solution<Solution> &&
+    requires(Evaluator &evaluator, const Solution &solution) { { evaluator.evaluate(solution) } -> is_evaluation; } &&
+    is_evaluation<Evaluation> &&
+    requires(Evaluator &evaluator, const Evaluation ev1, const Evaluation ev2){
+        { evaluator.compare(ev1, ev2) } -> std::same_as<bool>;
+    };
 }
 
 namespace compass::utils::limits {
